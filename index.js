@@ -9,3 +9,7 @@ function* fibonacci(limit = Infinity) {
 for(let i of fibonacci(100)) {
   console.log(i)
 }
+
+//or call as below
+
+console.log([...fibonacci(200)]);
