@@ -28,3 +28,35 @@ console.log(...fibonacci(30));
 console.log('=========Destructuring===========');
 const [a,...b] = [...fibonacci(30)]
 console.log(a,...b);
+
+//async operations two way communication
+
+var app = clientApp();
+app.next();
+
+function apiCall(url) {
+  const resp = `api response message from ${url}`;
+  const p = new Promise((res, rej) => {
+    setTimeout(() => {
+      res(resp);
+    }, 2000);
+  });
+  return p;
+}
+
+function download(url) {
+  apiCall(url).then((data) => {
+    app.next(data);
+  })
+}
+
+function* clientApp() {
+  const apiResp1 = yield download('/user/data/1');
+  console.log(apiResp1);
+  
+  const apiResp2 = yield download('/user/data/2');
+  console.log(apiResp2);
+}
+
+
+
